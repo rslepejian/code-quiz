@@ -20,6 +20,7 @@ var usedArray = [];
 // Variable holding amount of time user has left, intialized to 60
 var secondsLeft = 60;
 
+var timerInterval;
 
 // wrong or right text at bottom of screen
 var result = document.createElement("p");
@@ -46,14 +47,14 @@ function init() {
     // renders question
     renderQuestion();
     // ticks down time
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
 
         timer.textContent = secondsLeft;
         
         // game over scenario
-        if(secondsLeft === 0) {
+        if(secondsLeft <= 0) {
             clearInterval(timerInterval);
-            
+            gameOver();
         }
         secondsLeft--;
     }, 1000);
@@ -93,6 +94,14 @@ function renderQuestion() {
     usedArray.unshift(qArray[tempRandNum]);
     // removes the question from the remaining questions
     qArray.splice(tempRandNum, 1);
+}
+
+function gameOver() {
+    secondsLeft = "00";
+    timer.textContent = secondsLeft;
+    header.children[0].textContent = "Highscores";
+    content.removeChild(content.children[0]);
+    bottom.removeChild(bottom.children[0]);
 }
 
 // detects if user selected on of the list item answers
