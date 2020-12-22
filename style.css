@@ -19,3 +19,7 @@ p {
     text-align: center;
     align-self: center;
 }
+
+ol {
+    align-self: center;
+}
