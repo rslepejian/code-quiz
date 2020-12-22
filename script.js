@@ -19,9 +19,12 @@ function init() {
     content.removeChild(content.children[0]);
     bottom.removeChild(bottom.children[0]);
     var qlist = document.createElement("ol");
+    var tempArray = qArray[0].ans;
     for (i = 0; i < 4; i++){
+        randNum = Math.floor(Math.random()*(4 - i));
         var qlistItem = document.createElement("li");
-        qlistItem.textContent = qArray[0].ans[i];
+        qlistItem.textContent = tempArray[randNum];
+        tempArray.splice(randNum,1);
         qlist.appendChild(qlistItem);
     }
     content.appendChild(qlist);
@@ -39,9 +42,15 @@ function init() {
 }
 
 
-
+content.addEventListener("click", function(event) {
+    event.preventDefault();
+    if(event.target.matches("li")){
+        
+    }
+})
 
 bottom.addEventListener("click", function(event) {
+    event.preventDefault();
     if(event.target.matches("button")){
         init();
     }
