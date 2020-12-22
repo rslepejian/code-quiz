@@ -1,0 +1,21 @@
+h1 {
+    text-align: center;
+}
+
+#title {
+    margin-top: 20%;
+}
+
+.row {
+    margin-bottom: 40px;
+}
+
+p {
+    text-align: center;
+}
+
+.btn {
+    width: 70px;
+    text-align: center;
+    align-self: center;
+}
