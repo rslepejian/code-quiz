@@ -1,25 +1,24 @@
-h1 {
+/* centering text */
+h1,p {
     text-align: center;
 }
-
+/* offsetting all the content from the top */
 #title {
     margin-top: 20%;
 }
-
+/* spacing sections from each other vertically */
 .row {
     margin-bottom: 40px;
 }
 
-p {
-    text-align: center;
-}
-
+/* button size and alignments */
 .btn {
     width: 70px;
     text-align: center;
     align-self: center;
 }
 
+/* centering lists */
 ol {
     align-self: center;
 }
