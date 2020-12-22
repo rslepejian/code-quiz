@@ -5,6 +5,13 @@ var bottom = document.querySelector("#bottom");
 var timer = document.querySelector("#time");
 var highScoreButton = document.querySelector(".navbar-link");
 
+// making scores array var
+var scoresArray = [];
+
+// checking if there is scores in local storage, if so setting scores array to that
+if (localStorage.getItem("scores")!= null){
+    scoresArray = JSON.parse(localStorage.getItem("scores"));
+}
 
 // The array of questions
 var qArray = [
@@ -97,37 +104,143 @@ function renderQuestion() {
     qArray.splice(tempRandNum, 1);
 }
 
+// takes you to highscores page
 function renderScores() {
+    // resets timer
     timer.textContent = "00";
+    // changes header to say highscores
     header.children[0].textContent = "Highscores";
+    // clears content section
     content.removeChild(content.children[0]);
-    bottom.removeChild(bottom.children[0]);
+    // clears footer section unles it's empty
+    if (bottom.children[0] != null){
+        bottom.removeChild(bottom.children[0]);
+    }
+
+    // creates an ordered list for the scores
+    var scoreList = document.createElement("ol");
+    // loops through the array of scores and puts them in a new list item
+    for (i = 0; i < scoresArray.length; i++){
+        tempListItem = document.createElement("li");
+        tempListItem.textContent = scoresArray[i].name + " - " + scoresArray[i].score;
+        scoreList.appendChild(tempListItem);
+    }
+    // appends the list to the content section
+    content.appendChild(scoreList);
+
+    // buttonsssssssss
+    // creates a div for the new buttons
+    var buttonsDiv = document.createElement("div");
+    // creates the 2 buttons with unique names
+    var backBtn = document.createElement("button");
+    var clearBtn = document.createElement("button");
+    // adds button text
+    backBtn.textContent = "Go Back";
+    clearBtn.textContent = "Clear HighScores";
+    // adds button to the div
+    buttonsDiv.appendChild(backBtn);
+    buttonsDiv.appendChild(clearBtn);
+    // adds the div to the bottom section
+    bottom.appendChild(buttonsDiv);
+
+
+    backBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        startOver();
+    });
+
+
+    // clear button clears local storage, empties score array, re renders score
+    clearBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        localStorage.clear();
+        scoresArray = [];
+        renderScores();
+    });
 }
 
+// resets the whole page to the starting position
+function startOver() {
+    // resets header
+    header.children[0].textContent = "Code Quiz";
+
+    // clears content and bottom sections
+    content.removeChild(content.children[0]);
+
+    if (bottom.children[0] != null){
+        bottom.removeChild(bottom.children[0]);
+    }
+
+    // recreates instruction paragraph 
+    var contentSub = document.createElement("p");
+    contentSub.setAttribute("id", "instruction");
+    contentSub.textContent = "This ish a cote kuishh, do yor besht maggot." ;
+    content.appendChild(contnetSub);
+
+    var bottomButton = document.createElement("button");
+    
+}
+
+// function occurs when time hits 0 or questions run out
 function gameOver() {
+
+    timer.textContent = "00";
+    
+    // prompts user to input high score
     header.children[0].textContent = "Enter your initials to save your highscore";
+    // clear content and bottom sections
     content.removeChild(content.children[0]);
     bottom.removeChild(bottom.children[0]);
 
+    // adds form for initials and button to submit
+    // creates a form for entering initials
     var form = document.createElement("form");
+    // makes the input field
     var input = document.createElement("input");
+    // makes submit button
     var newBtn = document.createElement("button");
+    // sets the input field to accept text
     input.setAttribute("type", "text");
+    // adds the input to the form
     form.appendChild(input);
+    // makes the button have submit written on it
     newBtn.textContent = "Submit";
+    // adds the button to the form
     form.appendChild(newBtn);
+    // adds the entire form to the page
     content.appendChild(form);
 
-    newBtn.addEventListener("click", function(){
-        
+    // event listener for submit button clicked
+    newBtn.addEventListener("click", function(event){
+        event.preventDefault();
+        // reads the users input initials
+        var saveName = input.value;
+        // sets the user's remaining time as the score
+        if (secondsLeft < 0){
+            secondsLeft = 0;
+        }
+        var saveScore = secondsLeft;
+        // adds a score object to the scoresArray
+        var newScore = {name : saveName, score : saveScore};
+        scoresArray.push(newScore);
 
+        // sorts the array of scores based on the score field of the score objects
+        // score2.score - score1.score specifies to sort in descending order
+        // if above is greater than 0, it swaps the array elements
+        scoresArray.sort((score1,score2) => score2.score - score1.score);
+
+        // stores updated array in local storage
+        localStorage.setItem("scores", JSON.stringify(scoresArray));
+        // takes to highscore page
+        renderScores();
     });
 }
 
 // detects if user selected on of the list item answers
 content.addEventListener("click", function(event) {
     event.preventDefault();
-    if(event.target.matches("li")){
+    if(event.target.matches("li") && timer.textContent != "00"){
         if(event.target.textContent == usedArray[0].corr){
             result.textContent = "Correct!";
         }
@@ -140,19 +253,21 @@ content.addEventListener("click", function(event) {
             clearInterval(timerInterval);
             gameOver();
         }
-
-    renderQuestion();
+        else{
+            renderQuestion();
+        }
     }
-})
+});
 
 // detects when user clicks start button and calls init()
 bottom.addEventListener("click", function(event) {
     event.preventDefault();
-    if(event.target.matches("button")){
+    if(event.target.matches("button") && timer.textContent != "00"){
         init();
     }
-})
+});
 
+// detects high score being clicked and takes to scores page
 highScoreButton.addEventListener("click", function() {
     renderScores();
-})
+});
