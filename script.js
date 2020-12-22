@@ -15,19 +15,7 @@ var secondsLeft = 60;
 
 
 function init() {
-    header.children[0].textContent = qArray[0].q;
-    content.removeChild(content.children[0]);
-    bottom.removeChild(bottom.children[0]);
-    var qlist = document.createElement("ol");
-    var tempArray = qArray[0].ans;
-    for (i = 0; i < 4; i++){
-        randNum = Math.floor(Math.random()*(4 - i));
-        var qlistItem = document.createElement("li");
-        qlistItem.textContent = tempArray[randNum];
-        tempArray.splice(randNum,1);
-        qlist.appendChild(qlistItem);
-    }
-    content.appendChild(qlist);
+    renderQuestion();
     var timerInterval = setInterval(function() {
 
         timer.textContent = secondsLeft;
@@ -39,6 +27,24 @@ function init() {
         }
         secondsLeft--;
     }, 1000);
+}
+
+function renderQuestion() {
+    var tempRandNum = Math.floor(Math.random()*qArray.length);
+    header.children[0].textContent = qArray[tempRandNum].q;
+    content.removeChild(content.children[0]);
+    bottom.removeChild(bottom.children[0]);
+    var qlist = document.createElement("ol");
+    var tempArray = qArray[0].ans;
+    for (i = 0; i < 4; i++){
+        var randNum = Math.floor(Math.random()*(4 - i));
+        var qlistItem = document.createElement("li");
+        qlistItem.textContent = tempArray[randNum];
+        tempArray.splice(randNum,1);
+        qlist.appendChild(qlistItem);
+    }
+    content.appendChild(qlist);
+    qArray.splice(tempRandNum, 1);
 }
 
 
