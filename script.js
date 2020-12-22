@@ -3,6 +3,7 @@ var header = document.querySelector("#title");
 var content = document.querySelector("#content");
 var bottom = document.querySelector("#bottom");
 var timer = document.querySelector("#time");
+var highScoreButton = document.querySelector(".navbar-link");
 
 
 // The array of questions
@@ -96,12 +97,31 @@ function renderQuestion() {
     qArray.splice(tempRandNum, 1);
 }
 
-function gameOver() {
-    secondsLeft = "00";
-    timer.textContent = secondsLeft;
+function renderScores() {
+    timer.textContent = "00";
     header.children[0].textContent = "Highscores";
     content.removeChild(content.children[0]);
     bottom.removeChild(bottom.children[0]);
+}
+
+function gameOver() {
+    header.children[0].textContent = "Enter your initials to save your highscore";
+    content.removeChild(content.children[0]);
+    bottom.removeChild(bottom.children[0]);
+
+    var form = document.createElement("form");
+    var input = document.createElement("input");
+    var newBtn = document.createElement("button");
+    input.setAttribute("type", "text");
+    form.appendChild(input);
+    newBtn.textContent = "Submit";
+    form.appendChild(newBtn);
+    content.appendChild(form);
+
+    newBtn.addEventListener("click", function(){
+        
+
+    });
 }
 
 // detects if user selected on of the list item answers
@@ -116,6 +136,11 @@ content.addEventListener("click", function(event) {
             secondsLeft -= 15;
             timer.textContent = secondsLeft;
         }
+        if (qArray.length == 0){
+            clearInterval(timerInterval);
+            gameOver();
+        }
+
     renderQuestion();
     }
 })
@@ -126,4 +151,8 @@ bottom.addEventListener("click", function(event) {
     if(event.target.matches("button")){
         init();
     }
+})
+
+highScoreButton.addEventListener("click", function() {
+    renderScores();
 })
