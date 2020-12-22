@@ -119,7 +119,7 @@ function renderScores() {
 
     // creates an ordered list for the scores
     var scoreList = document.createElement("ol");
-    // loops through the array of scores and puts them in a new list item
+    // loops through the array of scores and puts each item in a new list item
     for (i = 0; i < scoresArray.length; i++){
         tempListItem = document.createElement("li");
         tempListItem.textContent = scoresArray[i].name + " - " + scoresArray[i].score;
@@ -146,7 +146,6 @@ function renderScores() {
 
     backBtn.addEventListener("click", function(event) {
         event.preventDefault();
-
         startOver();
     });
 
@@ -162,6 +161,10 @@ function renderScores() {
 
 // resets the whole page to the starting position
 function startOver() {
+    console.log("startover");
+    secondsLeft = 60;
+    timer.textContent = secondsLeft;
+
     // resets header
     header.children[0].textContent = "Code Quiz";
 
@@ -176,10 +179,13 @@ function startOver() {
     var contentSub = document.createElement("p");
     contentSub.setAttribute("id", "instruction");
     contentSub.textContent = "This ish a cote kuishh, do yor besht maggot." ;
-    content.appendChild(contnetSub);
+    content.appendChild(contentSub);
 
     var bottomButton = document.createElement("button");
-    
+    bottomButton.textContent = "Start";
+    bottomButton.setAttribute("type", "button");
+    bottomButton.setAttribute("class", "btn btn-primary");
+    bottom.appendChild(bottomButton);
 }
 
 // function occurs when time hits 0 or questions run out
@@ -189,9 +195,15 @@ function gameOver() {
     
     // prompts user to input high score
     header.children[0].textContent = "Enter your initials to save your highscore";
+    
     // clear content and bottom sections
-    content.removeChild(content.children[0]);
-    bottom.removeChild(bottom.children[0]);
+    if (content.children[0] != null){
+        content.removeChild(content.children[0]);
+    }
+
+    if (bottom.children[0] != null){
+        bottom.removeChild(bottom.children[0]);
+    }
 
     // adds form for initials and button to submit
     // creates a form for entering initials
@@ -262,7 +274,8 @@ content.addEventListener("click", function(event) {
 // detects when user clicks start button and calls init()
 bottom.addEventListener("click", function(event) {
     event.preventDefault();
-    if(event.target.matches("button") && timer.textContent != "00"){
+    // makes sure only the bootstrap button activates this
+    if(event.target.getAttribute("class") == "btn btn-primary" && timer.textContent != "00"){
         init();
     }
 });
