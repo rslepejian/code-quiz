@@ -19,7 +19,7 @@ var qArray = [
     { q: "In which of the following categories do humans fall?", ans: ["Mammals", "Reptiles", "Amphibians", "Insects"], corr: "Mammals" }, 
     { q: "A leap year occurs every ____ years.", ans: ["4", "8", "13", "7"], corr: "4" }, 
     { q: "How many days are there in 1 week?", ans: ["7", "5", "10", "13"], corr: "7" },
-    { q: "Is water dry?", ans: ["yes", "no", "maybe", "sometimes"], corr: "no" } 
+    { q: "Is water dry?", ans: ["no", "yes", "maybe", "sometimes"], corr: "no" } 
     ];
 
 // An array to add questions that have already been asked to 
@@ -36,12 +36,12 @@ var result = document.createElement("p");
 // function activated when user clicks start button
 function init() {
     // resets all variables to default
-    var qArray = [
+    qArray = [
         { q: "What day is Christmas?", ans: ["December 25th", "December 26th", "November 8th", "January 3rd"], corr: "December 25th" },
         { q: "In which of the following categories do humans fall?", ans: ["Mammals", "Reptiles", "Amphibians", "Insects"], corr: "Mammals" }, 
         { q: "A leap year occurs every ____ years.", ans: ["4", "8", "13", "7"], corr: "4" }, 
         { q: "How many days are there in 1 week?", ans: ["7", "5", "10", "13"], corr: "7" },
-        { q: "Is water dry?", ans: ["yes", "no", "maybe", "sometimes"], corr: "no" } 
+        { q: "Is water dry?", ans: ["no", "yes", "maybe", "sometimes"], corr: "no" } 
         ];
     usedArray = [];
     secondsLeft = 60;
