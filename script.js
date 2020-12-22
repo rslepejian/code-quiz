@@ -181,6 +181,7 @@ function startOver() {
     contentSub.textContent = "This ish a cote kuishh, do yor besht maggot." ;
     content.appendChild(contentSub);
 
+    // recreates start button with bootstrap class and type
     var bottomButton = document.createElement("button");
     bottomButton.textContent = "Start";
     bottomButton.setAttribute("type", "button");
@@ -249,23 +250,29 @@ function gameOver() {
     });
 }
 
-// detects if user selected on of the list item answers
+// detects if user selected one of the list item answers
 content.addEventListener("click", function(event) {
     event.preventDefault();
     if(event.target.matches("li") && timer.textContent != "00"){
         if(event.target.textContent == usedArray[0].corr){
+            // say correct at bottom
             result.textContent = "Correct!";
         }
         else{
+            // say wrong at bottom and remove time
             result.textContent = "Wrong!";
             secondsLeft -= 15;
+            // reupdate time for smooveness
             timer.textContent = secondsLeft;
         }
+        // detects if there are no questions left
         if (qArray.length == 0){
+            // gamemover, man
             clearInterval(timerInterval);
             gameOver();
         }
         else{
+            // continue with the quiz
             renderQuestion();
         }
     }
