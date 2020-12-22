@@ -15,11 +15,11 @@ if (localStorage.getItem("scores")!= null){
 
 // The array of questions
 var qArray = [
-    { q: "Is water wet?", ans: ["yes wet", "no", "maybe", "sometimes"], corr: "yes wet" },
-    { q: "Is the sky blue?", ans: ["yes blue", "no", "maybe", "sometimes"], corr: "yes blue" }, 
-    { q: "Do apples fall up?", ans: ["yes up", "no", "maybe", "sometimes"], corr: "yes up" }, 
-    { q: "Are squares circles?", ans: ["yes circle", "no", "maybe", "sometimes"], corr: "yes circle" },
-    { q: "Is water dry?", ans: ["yes dry", "no", "maybe", "sometimes"], corr: "yes dry" } 
+    { q: "What day is Christmas?", ans: ["December 25th", "December 26th", "November 8th", "January 3rd"], corr: "December 25th" },
+    { q: "In which of the following categories do humans fall?", ans: ["Mammals", "Reptiles", "Amphibians", "Insects"], corr: "Mammals" }, 
+    { q: "A leap year occurs every ____ years.", ans: ["4", "8", "13", "7"], corr: "4" }, 
+    { q: "How many days are there in 1 week?", ans: ["7", "5", "10", "13"], corr: "7" },
+    { q: "Is water dry?", ans: ["yes", "no", "maybe", "sometimes"], corr: "no" } 
     ];
 
 // An array to add questions that have already been asked to 
@@ -36,12 +36,12 @@ var result = document.createElement("p");
 // function activated when user clicks start button
 function init() {
     // resets all variables to default
-    qArray = [
-        { q: "Is water wet?", ans: ["yes wet", "no", "maybe", "sometimes"], corr: "yes wet" },
-        { q: "Is the sky blue?", ans: ["yes blue", "no", "maybe", "sometimes"], corr: "yes blue" }, 
-        { q: "Do apples fall up?", ans: ["yes up", "no", "maybe", "sometimes"], corr: "yes up" }, 
-        { q: "Are squares circles?", ans: ["yes circle", "no", "maybe", "sometimes"], corr: "yes circle" },
-        { q: "Is water dry?", ans: ["yes dry", "no", "maybe", "sometimes"], corr: "yes dry" } 
+    var qArray = [
+        { q: "What day is Christmas?", ans: ["December 25th", "December 26th", "November 8th", "January 3rd"], corr: "December 25th" },
+        { q: "In which of the following categories do humans fall?", ans: ["Mammals", "Reptiles", "Amphibians", "Insects"], corr: "Mammals" }, 
+        { q: "A leap year occurs every ____ years.", ans: ["4", "8", "13", "7"], corr: "4" }, 
+        { q: "How many days are there in 1 week?", ans: ["7", "5", "10", "13"], corr: "7" },
+        { q: "Is water dry?", ans: ["yes", "no", "maybe", "sometimes"], corr: "no" } 
         ];
     usedArray = [];
     secondsLeft = 60;
@@ -77,7 +77,6 @@ function renderQuestion() {
     
     // removes the instructions from content section
     content.removeChild(content.children[0]);
-    
     
     // creates an html list
     var qlist = document.createElement("ol");
@@ -178,7 +177,7 @@ function startOver() {
     // recreates instruction paragraph 
     var contentSub = document.createElement("p");
     contentSub.setAttribute("id", "instruction");
-    contentSub.textContent = "This ish a cote kuishh, do yor besht maggot." ;
+    contentSub.textContent = "This is a timed quiz. Your score will be the time you have left when you've answered every question. To select an answer, click on it. Good luck!" ;
     content.appendChild(contentSub);
 
     // recreates start button with bootstrap class and type
