@@ -18,8 +18,10 @@ This site contains a timed quiz that scores the user based on their remaining ti
 
 ## Preview of Working Site
 
-![Image]()
-![Image]()
+![Image](/previewImg/start.png)
+![Image](/previewImg/question.png)
+![Image](/previewImg/initial.png)
+![Image](/previewImg/highscore.png)
 
 ## Code Snippet
 This code snippet shows the handling of the user clicking one of the potential answers to a question. It then detects whether their choice matches the attribute in the question object that corresponds to the correct answer. If the answer is correct the text "Correct!" is displayed at the bottom of the screen. If not, the text "Wrong!" is displayed and the remaining time is decreased by 15 seconds. After that, the array containing the remaining unasked questions is checked. If it is empty, there are no questions left to be asked, and the quiz is over. The gameOver() method is called and the interval, timerInterval, is cleared. This code snippet was chosen because determining if the user selected the right answer to the presented questions was the main crux of this task of running a quiz. It also presented several interesting hurdles when combined with the fact that the questions and the answers in the quiz are being shown in random orders.
